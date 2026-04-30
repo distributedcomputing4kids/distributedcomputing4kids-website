@@ -43,22 +43,6 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Write CNAME for custom domain
-        # When publishing via Actions, the Pages source no longer auto-creates
-        # a CNAME from the repo's Pages settings. Without one in the artifact,
-        # GitHub can't provision a Let's Encrypt cert for the custom domain,
-        # so the site is forced to HTTP. Each repo (and any fork) gets its
-        # own host from configure-pages, so this stays correct under the
-        # sync-fork workflow.
-        env:
-          PAGES_HOST: ${{ steps.pages.outputs.host }}
-        run: |
-          if [ -n "$PAGES_HOST" ] && [[ "$PAGES_HOST" != *.github.io ]]; then
-            echo "$PAGES_HOST" > CNAME
-            echo "Wrote CNAME: $PAGES_HOST"
-          else
-            echo "No custom domain (host='$PAGES_HOST'); skipping CNAME"
-          fi
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
