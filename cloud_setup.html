@@ -1,0 +1,434 @@
+---
+layout: default
+title: Set Up a Cloud Account
+description: How to get a Spark notebook running in the cloud with Databricks, Google Cloud, AWS, Azure, IBM Cloud, or Snowflake — without accidentally spending money.
+---
+
+<article class="doc">
+  <div class="doc-inner">
+
+    <header class="doc-header">
+      <div class="badge">☁️ Setup in the cloud</div>
+      <h1 class="doc-title">Borrow a cluster in the cloud</h1>
+      <p class="doc-lede">
+        Lots of companies will rent you a <strong>whole cluster of computers</strong> with a Spark
+        notebook already set up on it, and several will let you use a small one for free. This
+        page walks a <strong>grown-up helper</strong> through the sign-up. 🌐
+      </p>
+    </header>
+
+    <div class="doc-body">
+
+      <div class="callout callout-grownup">
+        <p><span class="callout-title">Grown-ups: read this part first. 🛑</span>
+        Most cloud accounts ask for a credit card, and most of them <em>can</em> charge real money
+        if a cluster gets left switched on. So:</p>
+        <ul>
+          <li>An <strong>adult should own the account</strong> and enter the card. Cloud providers
+          require you to be an adult to sign up anyway.</li>
+          <li>Set a <strong>budget alert</strong> while you're signing up — every provider on this
+          page has one — so you get an email long before anything surprising happens.</li>
+          <li><strong>Shut the cluster down when you're finished.</strong> This is the one that
+          actually costs people money. See the <a href="#cleanup">tidying up</a> checklist.</li>
+          <li>Don't want to hand over a card at all? Start with
+          <a href="#databricks">Databricks Free Edition</a> — no card, no timer, no way to run up
+          a bill.</li>
+        </ul>
+      </div>
+
+      <h2 id="which">Which one should we pick? 🤔</h2>
+
+      <p>Holden has worked at or with Google Cloud, Amazon AWS, Microsoft Azure, IBM Cloud,
+      Snowflake, and Databricks, and they will all happily run the code from this book. The
+      buttons live in different places and everybody uses slightly different words for the same
+      things, but underneath it's the same Spark.</p>
+
+      <div class="pick-grid">
+        <a class="pick-card" href="#databricks">
+          <span class="pick-icon">🧱</span>
+          <span class="pick-name">Databricks</span>
+          <span class="pick-note">Easiest by a mile. No card needed. <strong>Start here.</strong></span>
+        </a>
+        <a class="pick-card" href="#google">
+          <span class="pick-icon">🔷</span>
+          <span class="pick-name">Google Cloud</span>
+          <span class="pick-note">Dataproc — and Colab is a lovely five-minute shortcut</span>
+        </a>
+        <a class="pick-card" href="#aws">
+          <span class="pick-icon">📦</span>
+          <span class="pick-name">Amazon AWS</span>
+          <span class="pick-note">EMR. Powerful, but the most steps of anyone</span>
+        </a>
+        <a class="pick-card" href="#azure">
+          <span class="pick-icon">🟦</span>
+          <span class="pick-name">Microsoft Azure</span>
+          <span class="pick-note">Fabric, Synapse, or Azure Databricks</span>
+        </a>
+        <a class="pick-card" href="#ibm">
+          <span class="pick-icon">🔵</span>
+          <span class="pick-name">IBM Cloud</span>
+          <span class="pick-note">watsonx.ai Studio. Generous free "Lite" plans</span>
+        </a>
+        <a class="pick-card" href="#snowflake">
+          <span class="pick-icon">❄️</span>
+          <span class="pick-name">Snowflake</span>
+          <span class="pick-note">Great tool, slightly different Spark story</span>
+        </a>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>What the Spark bit is called</th>
+              <th>Card needed?</th>
+              <th>Good for us?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#databricks">Databricks</a></td>
+              <td>Notebooks on "serverless" compute</td>
+              <td>No, on Free Edition</td>
+              <td><strong>Easiest by a mile.</strong> Start here.</td>
+            </tr>
+            <tr>
+              <td><a href="#google">Google Cloud</a></td>
+              <td>Dataproc (and Colab notebooks)</td>
+              <td>Yes, for the free trial</td>
+              <td>Very good; Colab is a nice shortcut</td>
+            </tr>
+            <tr>
+              <td><a href="#aws">Amazon AWS</a></td>
+              <td>EMR — EMR Serverless or EMR Studio</td>
+              <td>Yes</td>
+              <td>Powerful, most steps</td>
+            </tr>
+            <tr>
+              <td><a href="#azure">Microsoft Azure</a></td>
+              <td>Fabric / Synapse Spark pools, Azure Databricks</td>
+              <td>Yes (Fabric has a card-free trial)</td>
+              <td>Good if the family already uses Microsoft</td>
+            </tr>
+            <tr>
+              <td><a href="#ibm">IBM Cloud</a></td>
+              <td>watsonx.ai Studio notebooks, Analytics Engine</td>
+              <td>No, for Lite plans</td>
+              <td>Good, generous free tier</td>
+            </tr>
+            <tr>
+              <td><a href="#snowflake">Snowflake</a></td>
+              <td>Snowflake Notebooks + Snowpark</td>
+              <td>No, for the trial</td>
+              <td>Great tool, slightly different Spark story</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-heads-up">
+        <p><span class="callout-title">Fair warning about button names 🔀</span>
+        Cloud companies redesign their websites constantly — often several times a year. The steps
+        below describe what you're looking for and roughly where it lives, but if a button has
+        moved or been renamed, that's the website changing, not you being lost. Searching the
+        provider's own docs for the words in <strong>bold</strong> usually lands you in the right
+        place.</p>
+      </div>
+
+      <h2 id="databricks">🧱 Databricks</h2>
+
+      <p>Databricks was started by the people who created Spark, and their free tier is the
+      gentlest way to get a Spark notebook. No credit card, and no cluster to remember to turn
+      off.</p>
+
+      <ol class="steps">
+        <li>Go to
+        <a href="https://www.databricks.com/learn/free-edition" target="_blank" rel="noopener">databricks.com/learn/free-edition</a>
+        and sign up for <strong>Databricks Free Edition</strong>. (You may still see this called
+        <em>Community Edition</em> in older books and blog posts — same idea, newer name.)</li>
+        <li>Confirm your email address and log in.</li>
+        <li>In the left sidebar click <strong>New</strong> → <strong>Notebook</strong>.</li>
+        <li>Make sure the language selector at the top of the notebook says
+        <strong>Python</strong>.</li>
+        <li>Type <code>spark.range(1000000).filter("id % 7 == 0").count()</code> into the first
+        cell and press Shift+Enter.</li>
+      </ol>
+
+      <p>The compute starts itself the first time you run a cell — that can take a minute — and
+      then you should see <code>142858</code>.</p>
+
+      <div class="callout callout-win">
+        <p><span class="callout-title">Did you notice? ✨</span>
+        You never typed <code>SparkSession.builder</code>. On Databricks the variable
+        <code>spark</code> already exists, ready to go, in every notebook. Most cloud notebooks
+        do this for you.</p>
+      </div>
+
+      <p>Free Edition is capped in size and idles itself out when you stop using it, which is
+      exactly what we want. If you outgrow it, Databricks also offers a full trial that runs
+      inside an AWS, Azure, or Google Cloud account — that one <em>can</em> cost money, so read
+      the <a href="#cleanup">tidying up</a> section first.</p>
+
+      <h2 id="google">🔷 Google Cloud</h2>
+
+      <p>Google Cloud's Spark service is called <strong>Dataproc</strong>. New accounts get a free
+      trial credit, and a card is required to prove you're a human — Google says it won't charge
+      you when the trial ends unless you choose to upgrade.</p>
+
+      <ol class="steps">
+        <li>Sign up at
+        <a href="https://cloud.google.com/free" target="_blank" rel="noopener">cloud.google.com/free</a>
+        with a Google account.</li>
+        <li>Create a <strong>project</strong> — think of it as a labelled box that holds
+        everything you make. Call it something like <code>dc4k</code>.</li>
+        <li>Set a budget alert: search the console for <strong>Billing</strong> →
+        <strong>Budgets &amp; alerts</strong>, and make a budget for a small amount like $5 so you
+        get an email if something you forgot about is still running.</li>
+        <li>Search the console's top search bar for <strong>Dataproc</strong> and enable the API
+        when it asks.</li>
+        <li>The friendliest option is <strong>Serverless for Apache Spark</strong> (older docs call
+        this "Dataproc Serverless"): choose to create an <strong>interactive session</strong>, or
+        open <strong>BigQuery Studio</strong> and start a notebook with a Spark session attached.
+        Serverless means there's no cluster sitting around costing money between uses.</li>
+        <li>If you'd rather have a classic cluster, use Dataproc → <strong>Create cluster</strong>,
+        pick the smallest machine type offered, tick <strong>Jupyter</strong> under optional
+        components, and — importantly — set <strong>scheduled deletion</strong> so the cluster
+        switches itself off after an hour or two of idleness.</li>
+      </ol>
+
+      <div class="callout">
+        <p><span class="callout-title">The five-minute shortcut 🏃</span>
+        <a href="https://colab.research.google.com" target="_blank" rel="noopener">Google Colab</a>
+        is free, needs only a Google account, and gives you a Python notebook in your browser. Run
+        <code>!pip install pyspark</code> in the first cell and you can do every exercise in the
+        book on Colab's single machine — the same as installing Spark on your own computer, but
+        with nothing to install. It's not a real cluster, but the code is identical.</p>
+        <p>If Spark complains about the Java version, run
+        <code>!apt-get -qq install -y openjdk-17-jdk-headless</code> first and try again.</p>
+      </div>
+
+      <h2 id="aws">📦 Amazon AWS</h2>
+
+      <p>Amazon's Spark service is <strong>EMR</strong> — Elastic MapReduce, named after
+      MapReduce, which was Spark's ancestor. AWS has the most steps of any provider here, and EMR
+      is <em>not</em> part of the AWS free tier, so keep an eye on the meter.</p>
+
+      <ol class="steps">
+        <li>Sign up at
+        <a href="https://aws.amazon.com/free/" target="_blank" rel="noopener">aws.amazon.com/free</a>.
+        You'll need a card and a phone number.</li>
+        <li>Turn on a budget straight away: search for <strong>Billing and Cost Management</strong>
+        → <strong>Budgets</strong>, and create a small monthly budget with an email alert.</li>
+        <li>Pick a region in the top-right corner — somewhere near you — and stick with it. Things
+        you make in one region are invisible in the others, which confuses absolutely everybody at
+        least once.</li>
+        <li>Search for <strong>EMR</strong>, then choose <strong>EMR Serverless</strong> and create
+        an application with the Spark option. Serverless is the right choice for us: it bills for
+        the time your work is actually running rather than for a cluster sitting idle. Leave the
+        "pre-initialized capacity" setting alone — that option keeps machines warm and ready,
+        which also means it keeps them billing.</li>
+        <li>For a notebook, open <strong>EMR Studio</strong> and create a Workspace, then attach it
+        to your serverless application. Alternatively, <strong>SageMaker Studio</strong> notebooks
+        and <strong>AWS Glue</strong> interactive sessions both give you PySpark with less
+        clicking.</li>
+        <li>Some steps ask you to create an <em>IAM role</em> or an <em>S3 bucket</em>. Accept the
+        defaults it offers — those are the permission slip and the storage locker, and AWS will
+        make sensible ones for you.</li>
+      </ol>
+
+      <div class="callout callout-heads-up">
+        <p><span class="callout-title">Watch out for classic clusters ⚠️</span>
+        If you create a classic EMR <em>cluster</em> rather than serverless, it charges for every
+        hour it exists, whether or not you're using it. Terminate it the moment you're done, and
+        check back the next day to be sure it's really gone.</p>
+      </div>
+
+      <h2 id="azure">🟦 Microsoft Azure</h2>
+
+      <p>Azure has more than one Spark: <strong>Microsoft Fabric</strong> (the current
+      recommendation, with Spark notebooks built in), <strong>Azure Synapse Analytics</strong>
+      Spark pools, and <strong>Azure Databricks</strong>, which is Databricks living inside
+      Azure.</p>
+
+      <ol class="steps">
+        <li>The quickest path is
+        <a href="https://www.microsoft.com/microsoft-fabric" target="_blank" rel="noopener">Microsoft Fabric</a>:
+        sign in with a Microsoft account and start the Fabric trial. The trial capacity doesn't
+        need a credit card, but it usually does need a work or school email address rather than a
+        personal Outlook or Hotmail one — which makes this a great option if a parent can sign up
+        through their workplace, and an awkward one otherwise.</li>
+        <li>In Fabric, create a <strong>workspace</strong>, then inside it create a
+        <strong>Notebook</strong>. Fabric notebooks are PySpark notebooks with <code>spark</code>
+        already defined, so run
+        <code>spark.range(1000000).filter("id % 7 == 0").count()</code> and you're off.</li>
+        <li>For the full cloud instead, sign up at
+        <a href="https://azure.microsoft.com/free/" target="_blank" rel="noopener">azure.microsoft.com/free</a>
+        (card required, comes with a trial credit), then search the portal for <strong>Azure
+        Databricks</strong> and create a workspace. From there it looks just like the
+        <a href="#databricks">Databricks</a> steps above.</li>
+        <li>Set a spending cap or budget under <strong>Cost Management + Billing</strong>. Azure
+        free accounts have a genuine spending limit you can leave switched on, which is a lovely
+        safety net.</li>
+      </ol>
+
+      <h2 id="ibm">🔵 IBM Cloud</h2>
+
+      <p>IBM's notebook environment is part of <strong>watsonx.ai Studio</strong> — you'll see it
+      called <em>Watson Studio</em> in anything written before 2024 — and its Spark cluster service
+      is <strong>IBM Analytics Engine</strong>. IBM's free "Lite" plans don't need a credit
+      card.</p>
+
+      <ol class="steps">
+        <li>Sign up at
+        <a href="https://cloud.ibm.com/registration" target="_blank" rel="noopener">cloud.ibm.com/registration</a>
+        and verify your email.</li>
+        <li>From the catalog, add <strong>watsonx.ai Studio</strong> and choose the
+        <strong>Lite</strong> plan. Lite plans are free and simply stop when you've used up the
+        month's allowance — they don't bill you.</li>
+        <li>Create a <strong>project</strong>, which is IBM's box for holding notebooks and data.
+        Some projects ask you to associate a Cloud Object Storage instance; pick the Lite plan for
+        that too.</li>
+        <li>In the project, add a new asset of type <strong>Notebook</strong>, and when it asks for
+        the runtime, pick one whose name includes <strong>Spark</strong>.</li>
+        <li>Run <code>spark.range(1000000).filter("id % 7 == 0").count()</code> in the first
+        cell.</li>
+      </ol>
+
+      <p>Lite runtimes have a monthly hour budget and stop your notebook when it's been idle for a
+      while. That's a feature, not a bug — nothing can run up a bill in the background.</p>
+
+      <h2 id="snowflake">❄️ Snowflake</h2>
+
+      <p>Snowflake gives you a 30-day trial with a chunk of free credits and no credit card, and
+      it has notebooks built in. One thing to know up front: Snowflake's own DataFrame library is
+      called <strong>Snowpark</strong>. It was deliberately designed to look like Spark, so most of
+      the code in this book reads the same — but it isn't literally Spark, so a few things are
+      spelled differently.</p>
+
+      <ol class="steps">
+        <li>Sign up at
+        <a href="https://signup.snowflake.com/" target="_blank" rel="noopener">signup.snowflake.com</a>.
+        Any cloud provider and region will do.</li>
+        <li>Log into <strong>Snowsight</strong> (the web interface) and choose
+        <strong>Projects</strong> → <strong>Notebooks</strong> → <strong>+ Notebook</strong>.</li>
+        <li>Pick the smallest warehouse offered. A Snowflake <em>warehouse</em> is its word for the
+        cluster doing the work; it auto-suspends when you stop typing, which keeps the trial
+        credits from evaporating.</li>
+        <li>To use Snowpark, start your notebook with:
+        <pre><code>from snowflake.snowpark.context import get_active_session
+
+session = get_active_session()
+session.range(1000000).filter("id % 7 = 0").count()</code></pre></li>
+        <li>If you'd rather run genuine PySpark code against Snowflake, look up
+        <strong>Snowpark Connect for Spark</strong> in their docs — it accepts real Spark DataFrame
+        code and runs it on Snowflake's engine.</li>
+      </ol>
+
+      <div class="callout">
+        <p><span class="callout-title">Our suggestion 💡</span>
+        Snowflake is a great thing to have seen, but if this is your first cluster and you want the
+        book's examples to match character-for-character, start with
+        <a href="#databricks">Databricks Free Edition</a> and come back to Snowflake
+        afterwards.</p>
+      </div>
+
+      <h2 id="test">Does it work? The same test everywhere 🧪</h2>
+
+      <p>Whichever provider you picked, run this in the first cell of the notebook:</p>
+
+      <pre><code>spark.range(1000000).filter("id % 7 == 0").count()</code></pre>
+
+      <p>If the answer is <code>142858</code>, you have a working Spark cluster and you're ready
+      for the book. 🎉</p>
+
+      <p>If it complains that <code>spark</code> is undefined, the notebook probably isn't a Spark
+      notebook — or it's still starting up. Try adding this above it:</p>
+
+      <pre><code>from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("dc4k").getOrCreate()</code></pre>
+
+      <p>If <em>that</em> fails too, the notebook is a plain Python notebook. Either pick a Spark
+      runtime when you create the notebook, or run <code>!pip install pyspark</code> first — that
+      gives you a one-machine Spark, which is plenty for the exercises.</p>
+
+      <h2 id="cleanup">Tidying up — the important bit 🧹</h2>
+
+      <p>Cloud computers keep charging while they're switched on, even if nobody is looking at
+      them. Make this a habit at the end of every session:</p>
+
+      <ul>
+        <li><strong>Databricks Free Edition, IBM Lite, Snowflake trial, Colab, Fabric
+        trial:</strong> nothing to do. They stop themselves and can't bill you.</li>
+        <li><strong>Any cluster you created by hand</strong> — a Dataproc cluster, EMR cluster,
+        Synapse pool, or Databricks trial cluster — needs to be deleted or terminated. Not "stop
+        the notebook": the <em>cluster</em> itself.</li>
+        <li><strong>Check the bill the next day.</strong> Open the billing page and look at the
+        current month's charges. If it says a few cents, or nothing, you're fine. This
+        thirty-second check is how you catch a forgotten cluster before it matters.</li>
+        <li><strong>Serverless options</strong> (Dataproc Serverless, EMR Serverless, Databricks
+        serverless) only bill while something is actually running, which is exactly why we
+        recommended them.</li>
+        <li><strong>Done for good?</strong> Close the account, or at least remove the payment
+        method. Every provider on this page lets you do that from the billing page.</li>
+      </ul>
+
+      <h2 id="trouble">When things go wrong 🔧</h2>
+
+      <dl class="trouble">
+
+        <dt>The sign-up won't accept the credit card</dt>
+        <dd>Providers usually put a small temporary hold (about $1) on the card to check it's real,
+        and some prepaid and virtual cards get rejected for this. Try a different card, or use one
+        of the no-card options: <a href="#databricks">Databricks Free Edition</a>,
+        <a href="#ibm">IBM Lite</a>, or <a href="#snowflake">Snowflake's trial</a>.</dd>
+
+        <dt>"Quota exceeded" or "insufficient capacity" when starting a cluster</dt>
+        <dd>New accounts start with low limits, and a region can genuinely be full. Ask for a
+        smaller cluster (fewer machines, smaller machine type), or switch to a different region.
+        Both are normal, and neither is your fault.</dd>
+
+        <dt>The cluster takes ages to start</dt>
+        <dd>Five minutes is normal for a real cluster — the provider is finding computers for you,
+        switching them on, and installing Spark on each one. Serverless options usually start in
+        under a minute.</dd>
+
+        <dt>A permissions or "access denied" error</dt>
+        <dd>Cloud accounts are strict about who is allowed to do what, and the person who made the
+        account has to grant permissions to everybody else — including, sometimes, to themselves.
+        Sign in as the account owner and accept the default role the wizard offers.</dd>
+
+        <dt>The notebook can't find your data file</dt>
+        <dd>Cloud clusters can't see the files on your laptop. Upload the file to the provider's
+        storage first (S3, Cloud Storage, ADLS, Cloud Object Storage, or the notebook's own file
+        browser), and use the path it gives you.</dd>
+
+        <dt>We got a bill! 😱</dt>
+        <dd>It happens, and it's usually a forgotten cluster. Delete anything still running, then
+        contact the provider's support — all of these companies have a history of forgiving
+        first-time accidental charges, especially for people who are learning.</dd>
+
+        <dt>This is all too much</dt>
+        <dd>Completely reasonable. Try
+        <a href="https://colab.research.google.com" target="_blank" rel="noopener">Google Colab</a>
+        with <code>!pip install pyspark</code>, or
+        <a href="{{ '/local_setup.html' | relative_url }}">install Spark on your own computer</a>.
+        The book works fine on one machine — a cluster just makes it more exciting.</dd>
+
+      </dl>
+
+      <nav class="doc-next" aria-label="Where to next">
+        <a href="{{ '/local_setup.html' | relative_url }}">
+          <span class="doc-next-lbl">Rather keep it on your own machine?</span>
+          <span class="doc-next-txt">💻 Install Spark locally →</span>
+        </a>
+        <a href="{{ '/' | relative_url }}">
+          <span class="doc-next-lbl">Back to</span>
+          <span class="doc-next-txt">🏠 Distributed Computing 4 Kids</span>
+        </a>
+      </nav>
+
+    </div>
+  </div>
+</article>
