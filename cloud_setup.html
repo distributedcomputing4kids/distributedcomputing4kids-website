@@ -12,8 +12,10 @@ description: How to get a Spark notebook running in the cloud with Databricks, G
       <h1 class="doc-title">Borrow a cluster in the cloud</h1>
       <p class="doc-lede">
         Lots of companies will rent you a <strong>whole cluster of computers</strong> with a Spark
-        notebook already set up on it, and several will let you use a small one for free. This
-        page walks a <strong>grown-up helper</strong> through the sign-up. 🌐
+        notebook already set up on it, and several will let you use a small one for free. It all
+        happens in a web browser, so this is also the way to go if you have a
+        <strong>tablet or Chromebook</strong> rather than a computer you can install things on.
+        This page walks a <strong>grown-up helper</strong> through the sign-up. 🌐
       </p>
     </header>
 
@@ -201,7 +203,7 @@ description: How to get a Spark notebook running in the cloud with Databricks, G
         <p><span class="callout-title">The five-minute shortcut 🏃</span>
         <a href="https://colab.research.google.com" target="_blank" rel="noopener">Google Colab</a>
         is free, needs only a Google account, and gives you a Python notebook in your browser. Run
-        <code>!pip install pyspark</code> in the first cell and you can do every exercise in the
+        <code>!pip install "pyspark==4.2.*"</code> in the first cell and you can do every exercise in the
         book on Colab's single machine — the same as installing Spark on your own computer, but
         with nothing to install. It's not a real cluster, but the code is identical.</p>
         <p>If Spark complains about the Java version, run
@@ -350,7 +352,7 @@ session.range(1000000).filter("id % 7 = 0").count()</code></pre></li>
 spark = SparkSession.builder.appName("dc4k").getOrCreate()</code></pre>
 
       <p>If <em>that</em> fails too, the notebook is a plain Python notebook. Either pick a Spark
-      runtime when you create the notebook, or run <code>!pip install pyspark</code> first — that
+      runtime when you create the notebook, or run <code>!pip install "pyspark==4.2.*"</code> first — that
       gives you a one-machine Spark, which is plenty for the exercises.</p>
 
       <h2 id="cleanup">Tidying up — the important bit 🧹</h2>
@@ -412,7 +414,7 @@ spark = SparkSession.builder.appName("dc4k").getOrCreate()</code></pre>
         <dt>This is all too much</dt>
         <dd>Completely reasonable. Try
         <a href="https://colab.research.google.com" target="_blank" rel="noopener">Google Colab</a>
-        with <code>!pip install pyspark</code>, or
+        with <code>!pip install "pyspark==4.2.*"</code>, or
         <a href="{{ '/local_setup.html' | relative_url }}">install Spark on your own computer</a>.
         The book works fine on one machine — a cluster just makes it more exciting.</dd>
 

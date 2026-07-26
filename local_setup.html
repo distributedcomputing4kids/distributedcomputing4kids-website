@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Set Up Spark and Python on Your Computer
-description: Step-by-step instructions for installing PySpark, Python, and Java on Mac, Linux, and Windows, so you can run the Distributed Computing 4 Kids notebooks on your own machine.
+description: Step-by-step instructions for installing PySpark 4.2, Python, and Java on Mac, Linux, and Windows, so you can run the Distributed Computing 4 Kids notebooks on your own machine.
 ---
 
 <article class="doc">
@@ -18,6 +18,26 @@ description: Step-by-step instructions for installing PySpark, Python, and Java 
     </header>
 
     <div class="doc-body">
+
+      <div class="callout callout-heads-up">
+        <p><span class="callout-title">First things first: you need an actual computer for this page. 🖥️</span>
+        A Mac, a Windows PC, or a Linux machine — something with a keyboard, a screen, and a
+        <em>terminal</em> you can type commands into. Everything on this page happens by typing
+        commands, so a phone or tablet won't work.</p>
+        <ul>
+          <li><strong>iPad, iPhone, or an Android phone or tablet?</strong> You can't install
+          Spark on these — Apple and Google don't let apps install other programs like this. That
+          is not a you problem, it's just how those devices work. Head to the
+          <a href="{{ '/cloud_setup.html' | relative_url }}">cloud notebook page</a> instead: it
+          runs in a web browser, so a tablet with a keyboard works fine.</li>
+          <li><strong>Chromebook?</strong> Most can do it, but you have to switch on the Linux
+          feature first — open Settings and search for "Linux development environment", turn it
+          on, then open the Terminal app it gives you and follow the
+          <a href="#linux">Linux instructions</a> below. If your Chromebook is a small or older
+          one, the <a href="{{ '/cloud_setup.html' | relative_url }}">cloud</a> will be much
+          happier.</li>
+        </ul>
+      </div>
 
       <div class="callout callout-grownup">
         <p><span class="callout-title">Helpers: please don't feel bad if you get stuck. 💛</span>
@@ -43,12 +63,14 @@ description: Step-by-step instructions for installing PySpark, Python, and Java 
         <li><strong>Java</strong> ☕ — Spark itself is written in Java and Scala, so even though
         we type Python, Java has to be there underneath. This is the step people forget most
         often, and it causes the most confusing error messages.</li>
-        <li><strong>PySpark and JupyterLab</strong> ✨ — PySpark is the Python flavour of Spark,
-        and JupyterLab is the notebook where we type code and see answers appear.</li>
+        <li><strong>PySpark and JupyterLab</strong> — PySpark is the Python flavour of Spark, and
+        JupyterLab is the notebook where we type code and see answers appear. We use PySpark
+        <strong>4.2</strong> throughout the book, so that's the version we ask for.</li>
       </ul>
 
       <p>Plan for about <strong>20–40 minutes</strong>, most of it waiting for downloads. You'll
-      need roughly <strong>5 GB of free disk space</strong> and an internet connection.</p>
+      need a Mac, Windows, or Linux computer with roughly <strong>5 GB of free disk space</strong>
+      and an internet connection.</p>
 
       <h2 id="pick">Pick your computer 👇</h2>
 
@@ -122,10 +144,10 @@ conda activate dc4k</code></pre>
 
       <h3>Step 3: install PySpark and the notebook</h3>
 
-      <pre><code>pip install --upgrade pyspark jupyterlab pandas</code></pre>
+      <pre><code>pip install --upgrade "pyspark==4.2.*" jupyterlab pandas</code></pre>
 
-      <p>That installs the latest PySpark. It's a biggish download — a few hundred megabytes —
-      so this is an excellent moment to go get a snack. 🍪</p>
+      <p>That installs PySpark 4.2. It's a biggish download — a few hundred megabytes — so this is
+      an excellent moment to go get a snack. 🍪</p>
 
       <p>Now skip down to <a href="#test">testing that it worked</a>.</p>
 
@@ -160,7 +182,7 @@ conda activate dc4k</code></pre>
 
       <h3>Step 3: install PySpark and the notebook</h3>
 
-      <pre><code>pip install --upgrade pyspark jupyterlab pandas</code></pre>
+      <pre><code>pip install --upgrade "pyspark==4.2.*" jupyterlab pandas</code></pre>
 
       <div class="callout">
         <p><span class="callout-title">Prefer your own package manager? 📦</span>
@@ -171,7 +193,7 @@ conda activate dc4k</code></pre>
         environment:</p>
         <pre><code>python3 -m venv ~/dc4k
 source ~/dc4k/bin/activate
-pip install --upgrade pyspark jupyterlab pandas</code></pre>
+pip install --upgrade "pyspark==4.2.*" jupyterlab pandas</code></pre>
         <p>Just don't <code>pip install</code> straight into the system Python — newer
         distributions block that on purpose, and they're right to.</p>
       </div>
@@ -209,7 +231,7 @@ conda activate dc4k</code></pre>
 
       <h3>Step 3: install PySpark and the notebook</h3>
 
-      <pre><code>pip install --upgrade pyspark jupyterlab pandas</code></pre>
+      <pre><code>pip install --upgrade "pyspark==4.2.*" jupyterlab pandas</code></pre>
 
       <h3 id="winutils">Step 4: the fiddly Windows bit (winutils)</h3>
 
@@ -247,9 +269,18 @@ conda activate dc4k</code></pre>
 
       <pre><code>pyspark --version</code></pre>
 
-      <p>You should see a chunky ASCII-art Spark logo, a version number starting with
-      <code>4.</code>, and a line naming the Java it found. If you see that, Java and Spark have
-      found each other and the hard part is over. 🎉</p>
+      <p>You should see the word <code>Spark</code> drawn out big using slashes and underscores
+      (that's Spark showing off), a version number starting with <code>4.2</code>, and a line
+      naming the Java it found. If you see that, Java and Spark have found each other and the hard
+      part is over. 🎉</p>
+
+      <div class="callout callout-win">
+        <p><span class="callout-title">Version 4.2, or: 42 with a dot in it 🌌</span>
+        Which means we are working with the Spark release that answers life, the universe, and
+        everything. We pin the book to 4.2 on purpose, so the version on your screen matches the
+        version in the chapters instead of drifting every few months. If you ever need to check
+        later, <code>pyspark --version</code> is how.</p>
+      </div>
 
       <p>Now let's actually compute something. Start the interactive shell:</p>
 
@@ -263,6 +294,10 @@ conda activate dc4k</code></pre>
       <pre><code>spark.range(1000000).filter("id % 7 == 0").count()</code></pre>
 
       <p>It should think for a moment and answer <code>142858</code>.</p>
+
+      <p>Where does that number come from? There are 142,857 multiples of seven under a million —
+      and <code>142857 × 7 = 999999</code>, which is one of the tidiest facts in arithmetic — and
+      then zero counts too, because zero divides by everything. So: 142,858.</p>
 
       <div class="callout callout-win">
         <p><span class="callout-title">You just did distributed computing! 🏆</span>
@@ -314,7 +349,8 @@ spark.range(1000000).filter("id % 7 == 0").count()</code></pre>
         <dt><code>JAVA_HOME is not set</code>, or <code>Unable to locate a Java Runtime</code></dt>
         <dd>Java isn't installed, or Spark can't see it. Inside your conda environment, run
         <code>conda install -c conda-forge openjdk=17</code> and try again. Check what you've got
-        with <code>java -version</code> — Spark 4 wants Java 17 or newer.</dd>
+        with <code>java -version</code> — Spark 4.2 runs on Java 17, 21, or 25, and we install
+        17.</dd>
 
         <dt><code>UnsupportedClassVersionError</code>, or a complaint about "class file version"</dt>
         <dd>The Java that's installed is <em>too old</em> for this version of Spark. Install a
