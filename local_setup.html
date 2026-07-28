@@ -143,12 +143,18 @@ description: Step-by-step instructions for installing PySpark 4.2, Python, and J
 
       <p>We recommend <strong>Miniforge</strong>: a small, community-run conda that's free for
       everybody, including at work. (The better-known Anaconda installer now needs a paid licence
-      for organisations of 200 people or more. Miniforge skips that entire conversation.)</p>
+      at larger organisations. Miniforge skips that entire conversation.)</p>
 
       <p><em>If you already have Homebrew</em> (type <code>brew --version</code> to find out),
-      it's one line:</p>
+      it's two lines — the second one wires conda into your shell, which the first one doesn't
+      do on its own:</p>
 
-      <pre><code>brew install --cask miniforge</code></pre>
+      <pre><code>brew install --cask miniforge
+conda init zsh</code></pre>
+
+      <p>Then <strong>close Terminal and open it again</strong>. You'll know it worked when the
+      prompt has <code>(base)</code> at the front, like <code>(base) yourname@laptop ~ %</code> —
+      and you can jump straight to <a href="#mac-step2">Step 2</a>.</p>
 
       <p><em>If you don't have Homebrew, that's fine</em> — you don't need it. Run these two lines
       instead. They work out which Mac you have on their own, so there's nothing to choose:</p>
@@ -156,7 +162,8 @@ description: Step-by-step instructions for installing PySpark 4.2, Python, and J
       <pre><code>curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 bash Miniforge3-$(uname)-$(uname -m).sh</code></pre>
 
-      <p>Now the installer asks you three things, and this is where everybody gets stuck:</p>
+      <p>That second line starts an installer which asks you three things, and this is where
+      everybody gets stuck:</p>
 
       <ol class="steps">
         <li>"Please, press ENTER to continue" — press Enter.</li>
@@ -181,7 +188,7 @@ bash Miniforge3-$(uname)-$(uname -m).sh</code></pre>
         then close and reopen Terminal.</p>
       </div>
 
-      <h3>Step 2: make a home for the project</h3>
+      <h3 id="mac-step2">Step 2: make a home for the project</h3>
 
       <p>This creates a little sandbox called <code>dc4k</code> with its own Python
       <em>and</em> its own Java, so nothing we do here can break anything else on the

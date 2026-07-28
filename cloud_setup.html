@@ -52,7 +52,7 @@ description: How to get a Spark notebook running in the cloud with Databricks, G
       <div class="callout">
         <p><span class="callout-title">Kids: here's your half of the job 🧑‍🚀</span>
         The sign-up really does belong to the grown-up — these companies only let adults open
-        accounts, and there's a credit card involved. Everything <em>after</em> the sign-up is
+        accounts, and there's usually a credit card involved. Everything <em>after</em> the sign-up is
         yours: making the notebook, setting it to Python, typing the code, running it. Read over
         their shoulder anyway, because you'll be the one who remembers where the buttons are next
         week. You also get the most important job on this page: at the end, you're the one who says
@@ -275,13 +275,12 @@ os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-17-openjdk-amd64"</code></pre>
         you make in one region are invisible in the others, which confuses absolutely everybody at
         least once.</li>
         <li>Search for <strong>EMR</strong>, then choose <strong>EMR Serverless</strong> and create
-        an application with the Spark option. Serverless is the right choice for us: it bills for
-        the time your work is actually running rather than for a cluster sitting idle. Leave the
+        an application with the Spark option. Two settings matter <em>before</em> you click
+        Create: tick the box that enables <strong>interactive</strong> use (it's off by default,
+        and without it the notebook step below has nothing to attach to), and leave the
         "pre-initialized capacity" setting alone — that option keeps machines warm and ready,
-        which also means it keeps them billing.</li>
-        <li>Make sure you tick the box for <strong>interactive</strong> use when you create the
-        application. It's off by default, and without it the notebook step below has nothing to
-        attach to.</li>
+        which also means it keeps them billing. Serverless is the right choice for us: it bills
+        for the time your work is actually running rather than for a cluster sitting idle.</li>
         <li>For a notebook, open <strong>EMR Studio</strong> and create a Workspace, then attach it
         to your serverless application. Alternatively, <strong>AWS Glue</strong> interactive
         sessions give you real PySpark with less clicking.</li>
